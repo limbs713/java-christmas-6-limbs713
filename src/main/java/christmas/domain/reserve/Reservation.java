@@ -38,8 +38,9 @@ public class Reservation {
         return discountBenefits.getTotalDiscountPrice();
     }
 
-    public EventBadge getEventBadge() {
+    public String getEventBadge() {
         int totalBenefitPrice = discountBenefits.getTotalBenefitPrice();
-        return EventBadge.getBadge(totalBenefitPrice);
+        EventBadge badge = EventBadge.getBadge(totalBenefitPrice);
+        return badge.getName();
     }
 }
