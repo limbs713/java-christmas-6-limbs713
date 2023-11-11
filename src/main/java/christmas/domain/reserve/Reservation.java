@@ -33,8 +33,8 @@ public class Reservation {
         return discountBenefits.getTotalBenefitPrice();
     }
 
-    public int getTotalDiscountPrice() {
-        return discountBenefits.getTotalDiscountPrice();
+    public int getTotalFinalPrice() {
+        return discountBenefits.getTotalFinalPrice();
     }
 
     public String getEventBadge() {

@@ -86,7 +86,7 @@ public class DiscountBenefits {
                 .sum();
     }
 
-    public int getTotalDiscountPrice() {
+    public int getTotalFinalPrice() {
         return discountBenefits.stream()
                 .filter(discountBenefits -> !discountBenefits.isBonusBenefit())
                 .mapToInt(DiscountBenefit::getBenefitPrice)
