@@ -33,10 +33,6 @@ public class Reservation {
         return discountBenefits.getTotalBenefitPrice();
     }
 
-    public int getTotalFinalPrice() {
-        return discountBenefits.getTotalFinalPrice();
-    }
-
     public String getEventBadge() {
         int totalBenefitPrice = discountBenefits.getTotalBenefitPrice();
         EventBadge badge = EventBadge.getBadge(totalBenefitPrice);

@@ -21,6 +21,7 @@ public class DiscountBenefits {
     private static final int BENEFIT_PRICE_BONUS_DISH = 25000;
     private static final int BENEFIT_PRICE_CHRISTMAS = 100;
     private static final int CONDITION_FOR_BONUS_DISH = 120000;
+    private static final int CONDITION_FOR_EVENT = 10000;
     private final List<DiscountBenefit> discountBenefits;
 
     private DiscountBenefits(Receipt receipt, int reservationDate) {
@@ -33,10 +34,12 @@ public class DiscountBenefits {
     }
 
     private void addDiscountBenefits(Receipt receipt, int reservationDate) {
-        checkDiscountByDayType(receipt, reservationDate).ifPresent(discountBenefits::add);
-        checkDiscountByStar(reservationDate).ifPresent(discountBenefits::add);
-        checkDiscountByTotalPrice(receipt.getTotalPrice()).ifPresent(discountBenefits::add);
-        checkDiscountByChristMas(reservationDate).ifPresent(discountBenefits::add);
+        if (receipt.getTotalPrice() >= CONDITION_FOR_EVENT) {
+            checkDiscountByDayType(receipt, reservationDate).ifPresent(discountBenefits::add);
+            checkDiscountByStar(reservationDate).ifPresent(discountBenefits::add);
+            checkDiscountByTotalPrice(receipt.getTotalPrice()).ifPresent(discountBenefits::add);
+            checkDiscountByChristMas(reservationDate).ifPresent(discountBenefits::add);
+        }
     }
 
     private Optional<DiscountBenefit> checkDiscountByDayType(Receipt receipt, int reservationDate) {
@@ -82,13 +85,6 @@ public class DiscountBenefits {
 
     public int getTotalBenefitPrice() {
         return discountBenefits.stream()
-                .mapToInt(DiscountBenefit::getBenefitPrice)
-                .sum();
-    }
-
-    public int getTotalFinalPrice() {
-        return discountBenefits.stream()
-                .filter(discountBenefits -> !discountBenefits.isBonusBenefit())
                 .mapToInt(DiscountBenefit::getBenefitPrice)
                 .sum();
     }

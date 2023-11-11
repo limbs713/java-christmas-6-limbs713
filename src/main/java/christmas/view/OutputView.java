@@ -37,30 +37,30 @@ public class OutputView {
 
     private static void printBenefitPrice(int totalBenefitPrice) {
         printMessage(OUTPUT_BENEFIT_PRICE_TITLE_MESSAGE.getMessage());
-        printMessage(String.format(OUTPUT_BENEFIT_PRICE_MESSAGE.getMessage(),totalBenefitPrice));
+        printMessage(String.format(OUTPUT_BENEFIT_PRICE_MESSAGE.getMessage(), -1 * totalBenefitPrice));
     }
 
     private static void printBenefits(Map<String, Integer> benefits) {
         printMessage(OUTPUT_BENEFIT_TITLE_MESSAGE.getMessage());
 
-        if(benefits.isEmpty()){
+        if (benefits.isEmpty()) {
             printMessage(OUTPUT_NO_BENEFIT_MESSAGE.getMessage());
         }
 
-        if(!benefits.isEmpty()){
+        if (!benefits.isEmpty()) {
             benefits.forEach((key, value) ->
-                    printMessage(String.format(OUTPUT_BENEFIT_MESSAGE.getMessage(), key, value)));
+                    printMessage(String.format(OUTPUT_BENEFIT_MESSAGE.getMessage(), key, -1 * value)));
         }
     }
 
     private static void printBonusMenu(boolean isBonusMenuExist) {
         printMessage(OUTPUT_BONUS_MENU_TITLE_MESSAGE.getMessage());
 
-        if(isBonusMenuExist) {
+        if (isBonusMenuExist) {
             printMessage(OUTPUT_BONUS_MENU_MESSAGE.getMessage());
         }
 
-        if(!isBonusMenuExist) {
+        if (!isBonusMenuExist) {
             printMessage(OUTPUT_NO_BENEFIT_MESSAGE.getMessage());
         }
     }
@@ -74,6 +74,7 @@ public class OutputView {
     private static void printOrderMenu(Map<String, Integer> orderMenu) {
         printMessage(OUTPUT_ORDER_MENU_TITLE_MESSAGE.getMessage());
 
-        orderMenu.forEach((key, value) -> printMessage(String.format(OUTPUT_ORDER_MENU_MESSAGE.getMessage(),key,value)));
+        orderMenu.forEach(
+                (key, value) -> printMessage(String.format(OUTPUT_ORDER_MENU_MESSAGE.getMessage(), key, value)));
     }
 }

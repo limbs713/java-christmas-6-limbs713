@@ -32,7 +32,7 @@ public class ReserveRepository {
     }
 
     public int getFinalOrderPrice() {
-        return reservation.getTotalFinalPrice();
+        return reservation.getTotalOrderPrice() - reservation.getTotalBenefitPrice();
     }
 
     public String getEventBadge() {
