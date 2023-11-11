@@ -15,6 +15,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DiscountBenefits {
+    private static final int CHRISTMAS = 25;
+    private static final int BENEFIT_PRICE_DAY_TYPE = 2023;
+    private static final int BENEFIT_PRICE_STAR_DAY = 1000;
+    private static final int BENEFIT_PRICE_BONUS_DISH = 25000;
+    private static final int BENEFIT_PRICE_CHRISTMAS = 100;
+    private static final int CONDITION_FOR_BONUS_DISH = 120000;
     private final List<DiscountBenefit> discountBenefits;
 
     private DiscountBenefits(Receipt receipt, int reservationDate) {
@@ -37,35 +43,38 @@ public class DiscountBenefits {
         DayType daytype = DayType.valueOf(reservationDate);
 
         if (daytype.equals(DayType.WEEKDAY)) {
-            return Optional.of(new DayTypeBenefit(receipt.getDishesByMenuType(MenuType.DESERT), 2023, DayType.WEEKDAY));
+            return Optional.of(new DayTypeBenefit(receipt.getDishesByMenuType(MenuType.DESERT), BENEFIT_PRICE_DAY_TYPE,
+                    DayType.WEEKDAY));
         }
 
         if (daytype.equals(DayType.WEEKEND)) {
-            return Optional.of(new DayTypeBenefit(receipt.getDishesByMenuType(MenuType.MAIN), 2023, DayType.WEEKEND));
+            return Optional.of(new DayTypeBenefit(receipt.getDishesByMenuType(MenuType.MAIN), BENEFIT_PRICE_DAY_TYPE,
+                    DayType.WEEKEND));
         }
 
         return Optional.empty();
     }
 
     private Optional<DiscountBenefit> checkDiscountByStar(int reservationDate) {
-        if (reservationDate == 25 || Days.valueOf(reservationDate).equals(Days.FRIDAY)) {
-            return Optional.of(new SpecialBenefit(1000));
+        if (reservationDate == CHRISTMAS || Days.valueOf(reservationDate).equals(Days.FRIDAY)) {
+            return Optional.of(new SpecialBenefit(BENEFIT_PRICE_STAR_DAY));
         }
 
         return Optional.empty();
     }
 
     private Optional<DiscountBenefit> checkDiscountByTotalPrice(int totalPrice) {
-        if (totalPrice >= 120000) {
-            return Optional.of(new BonusDishBenefit(25000));
+        if (totalPrice >= CONDITION_FOR_BONUS_DISH) {
+            return Optional.of(new BonusDishBenefit(BENEFIT_PRICE_BONUS_DISH));
         }
 
         return Optional.empty();
     }
 
     public Optional<DiscountBenefit> checkDiscountByChristMas(int reservationDate) {
-        if (reservationDate >= 25) {
-            return Optional.of(new ChristmasBenefit((25 - reservationDate) * 100));
+        if (reservationDate >= CHRISTMAS) {
+            return Optional.of(new ChristmasBenefit((CHRISTMAS - reservationDate) * BENEFIT_PRICE_CHRISTMAS
+            ));
         }
 
         return Optional.empty();
