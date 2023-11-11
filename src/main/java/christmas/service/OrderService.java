@@ -3,10 +3,14 @@ package christmas.service;
 import static christmas.Constant.Message.INPUT_ORDER_MENU_ERROR_MESSAGE;
 
 import christmas.Constant.MenuType;
+import christmas.Constant.RegEx;
 import christmas.domain.order.MenuItem;
 import christmas.repository.OrderRepository;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -48,11 +52,17 @@ public class OrderService {
         }
     }
 
-    public List<MenuItem> createOrder(String orderMenu) {
-        List<String> orderMenuNames = List.of(orderMenu.split(","));
+    public Map<MenuItem, Integer> createOrder(String orderMenu) {
+        Pattern orderMenuParser = RegEx.PARSING_MENU_REG_EX.getRegExPattern();
+        Matcher matcher = orderMenuParser.matcher(orderMenu);
+        Map<MenuItem, Integer> menuNameWithCount = new LinkedHashMap<>();
 
-        return orderMenuNames.stream()
-                .map(orderRepository::getMenuItemByName)
-                .collect(Collectors.toList());
+        while(matcher.find()){
+            MenuItem menuItem = orderRepository.getMenuItemByName(matcher.group(1));
+            int count = Integer.parseInt(matcher.group(2));
+            menuNameWithCount.put(menuItem, count);
+        }
+
+        return menuNameWithCount;
     }
 }

@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 public class Receipt {
     private final List<Dish> dishes = new ArrayList<>();
 
-    private Receipt(List<MenuItem> menuItems) {
-        menuItems.forEach(menuItem -> dishes.add(new Dish(menuItem)));
+    private Receipt(Map<MenuItem, Integer> menuItems) {
+        menuItems.forEach((menuItem, count) -> dishes.add(new Dish(menuItem, count)));
     }
 
-    public static Receipt create(List<MenuItem> menuItems) {
+    public static Receipt create(Map<MenuItem, Integer> menuItems) {
         return new Receipt(menuItems);
     }
 
@@ -30,8 +30,8 @@ public class Receipt {
                 .count();
     }
 
-    public Map<String, Long> getOrderReceipt() {
+    public Map<String, Integer> getOrderReceipt() {
         return dishes.stream()
-                .collect(Collectors.groupingBy(Dish::getName, Collectors.counting()));
+                .collect(Collectors.toMap(Dish::getName, Dish::getQuantity));
     }
 }

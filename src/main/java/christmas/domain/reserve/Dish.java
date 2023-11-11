@@ -7,10 +7,12 @@ import java.util.Optional;
 public class Dish {
     private final String name;
     private final int price;
+    private final int quantity;
 
-    public Dish(MenuItem menuItem) {
+    public Dish(MenuItem menuItem , int quantity) {
         this.name = menuItem.getName();
         this.price = menuItem.getPrice();
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -18,8 +20,10 @@ public class Dish {
     }
 
     public int getPrice() {
-        return price;
+        return quantity * price;
     }
+
+    public int getQuantity() { return quantity; }
 
     public Optional<MenuType> getMenuType() {
         return MenuType.getType(name);

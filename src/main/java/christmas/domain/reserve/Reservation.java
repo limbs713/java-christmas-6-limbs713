@@ -2,19 +2,18 @@ package christmas.domain.reserve;
 
 import christmas.Constant.EventBadge;
 import christmas.domain.order.MenuItem;
-import java.util.List;
 import java.util.Map;
 
 public class Reservation {
     private final Receipt receipt;
     private final DiscountBenefits discountBenefits;
 
-    public Reservation(List<MenuItem> menuItems, int reservationDate) {
-        this.receipt = Receipt.create(menuItems);
+    public Reservation(Map<MenuItem,Integer> orderMenu, int reservationDate) {
+        this.receipt = Receipt.create(orderMenu);
         this.discountBenefits = DiscountBenefits.of(this.receipt, reservationDate);
     }
 
-    public Map<String, Long> getOrderReceipt() {
+    public Map<String, Integer> getOrderReceipt() {
         return receipt.getOrderReceipt();
     }
 
