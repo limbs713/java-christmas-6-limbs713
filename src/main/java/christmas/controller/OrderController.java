@@ -1,12 +1,12 @@
 package christmas.controller;
 
-import static Constant.Message.*;
+import static christmas.Constant.Message.*;
 
-import Constant.Message;
+import christmas.Constant.Message;
 import christmas.dto.OrderDto;
 import christmas.service.OrderService;
-import christmas.util.Validator.MenuValidator;
-import christmas.util.Validator.ReservationDateValidator;
+import christmas.Validator.MenuValidator;
+import christmas.Validator.ReservationDateValidator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.function.Consumer;
@@ -22,7 +22,8 @@ public class OrderController {
     public OrderDto order() {
         OutputView.printMessage(WELLCOME_TITLE_MESSAGE.getMessage());
 
-        String reservationDate = new InputBuilder(InputView::input, ReservationDateValidator::isValid, INPUT_RESERVATION_DATE_TITLE_MESSAGE)
+        String reservationDate = new InputBuilder(InputView::input, ReservationDateValidator::isValid,
+                INPUT_RESERVATION_DATE_TITLE_MESSAGE)
                 .build();
         String orderMenu = new InputBuilder(InputView::input, MenuValidator::isValid, INPUT_ORDER_TITLE_MESSAGE)
                 .menuValidator(orderService::isValidMenu)

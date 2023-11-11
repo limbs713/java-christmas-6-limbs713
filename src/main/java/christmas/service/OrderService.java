@@ -1,8 +1,8 @@
 package christmas.service;
 
-import static Constant.Message.INPUT_ORDER_MENU_ERROR_MESSAGE;
+import static christmas.Constant.Message.INPUT_ORDER_MENU_ERROR_MESSAGE;
 
-import Constant.MenuType;
+import christmas.Constant.MenuType;
 import christmas.domain.order.MenuItem;
 import christmas.repository.OrderRepository;
 import java.util.List;
@@ -27,7 +27,7 @@ public class OrderService {
         boolean containsNotExistMenuName = orderMenuNames.stream()
                 .anyMatch(name -> !orderRepository.isExistMenuName(name));
 
-        if(containsNotExistMenuName) {
+        if (containsNotExistMenuName) {
             throw new IllegalArgumentException(INPUT_ORDER_MENU_ERROR_MESSAGE.getMessage());
         }
     }
