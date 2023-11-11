@@ -6,6 +6,7 @@ import christmas.Constant.MenuType;
 import christmas.Constant.RegEx;
 import christmas.domain.order.MenuItem;
 import christmas.repository.OrderRepository;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,17 +15,29 @@ import java.util.regex.Pattern;
 
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final Pattern orderMenuParser = RegEx.PARSING_MENU_REG_EX.getRegExPattern();
 
     public OrderService() {
         this.orderRepository = new OrderRepository();
     }
 
     public void isValidMenu(String orderMenu) {
-        List<String> orderMenuNames = List.of(orderMenu.split(","));
+        Matcher matcher = orderMenuParser.matcher(orderMenu);
+        List<String> orderMenuNames = parseOnlyName(matcher);
 
         isExistMenuName(orderMenuNames);
         isDuplicateMenu(orderMenuNames);
         isOnlyBeverages(orderMenuNames);
+    }
+
+    private List<String> parseOnlyName(Matcher matcher) {
+        List<String> orderMenuNames = new ArrayList<>();
+
+        while(matcher.find()) {
+            orderMenuNames.add(matcher.group(1));
+        }
+
+        return orderMenuNames;
     }
 
     private void isExistMenuName(List<String> orderMenuNames) {
@@ -53,7 +66,6 @@ public class OrderService {
     }
 
     public Map<MenuItem, Integer> createOrder(String orderMenu) {
-        Pattern orderMenuParser = RegEx.PARSING_MENU_REG_EX.getRegExPattern();
         Matcher matcher = orderMenuParser.matcher(orderMenu);
         Map<MenuItem, Integer> menuNameWithCount = new LinkedHashMap<>();
 
