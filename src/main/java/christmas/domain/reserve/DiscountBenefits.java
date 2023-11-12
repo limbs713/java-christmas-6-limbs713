@@ -99,4 +99,11 @@ public class DiscountBenefits {
         return discountBenefits.stream()
                 .collect(Collectors.toMap(DiscountBenefit::getBenefitName, DiscountBenefit::getBenefitPrice));
     }
+
+    public int getActualDiscountPrice() {
+        return discountBenefits.stream()
+                .filter(benefit -> !benefit.isBonusBenefit())
+                .mapToInt(DiscountBenefit::getBenefitPrice)
+                .sum();
+    }
 }

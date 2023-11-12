@@ -36,7 +36,7 @@ public class ReserveRepository {
     }
 
     public int getFinalOrderPrice() {
-        return reservation.getTotalOrderPrice() - reservation.getTotalBenefitPrice();
+        return reservation.getTotalOrderPrice() - reservation.getActualDiscountPrice();
     }
 
     public String getEventBadge() {
