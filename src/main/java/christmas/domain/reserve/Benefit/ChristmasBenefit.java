@@ -1,8 +1,10 @@
 package christmas.domain.reserve.Benefit;
 
 public class ChristmasBenefit extends DiscountBenefit {
+    private static final int DEFAULT_DISCOUNT_PRICE = 1000;
+
     public ChristmasBenefit(int benefitPrice) {
-        super(benefitPrice);
+        super(benefitPrice + DEFAULT_DISCOUNT_PRICE);
     }
 
     @Override

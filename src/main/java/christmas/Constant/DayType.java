@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum DayType {
-    WEEKDAY(List.of(MONDAY, TUESDAY, WEDNESDAY, THURSDAY)), WEEKEND(List.of(FRIDAY, SUNDAY));
+    WEEKDAY(List.of(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, SUNDAY)), WEEKEND(List.of(FRIDAY, SUNDAY));
 
     private final List<Days> days;
 

@@ -22,6 +22,7 @@ public class DiscountBenefits {
     private static final int BENEFIT_PRICE_CHRISTMAS = 100;
     private static final int CONDITION_FOR_BONUS_DISH = 120000;
     private static final int CONDITION_FOR_EVENT = 10000;
+    private static final int START_DISCOUNT_DAY = 1;
     private final List<DiscountBenefit> discountBenefits;
 
     private DiscountBenefits(Receipt receipt, int reservationDate) {
@@ -59,7 +60,7 @@ public class DiscountBenefits {
     }
 
     private Optional<DiscountBenefit> checkDiscountByStar(int reservationDate) {
-        if (reservationDate == CHRISTMAS || Days.valueOf(reservationDate).equals(Days.FRIDAY)) {
+        if (reservationDate == CHRISTMAS || Days.valueOf(reservationDate).equals(Days.SUNDAY)) {
             return Optional.of(new SpecialBenefit(BENEFIT_PRICE_STAR_DAY));
         }
 
@@ -75,8 +76,8 @@ public class DiscountBenefits {
     }
 
     public Optional<DiscountBenefit> checkDiscountByChristMas(int reservationDate) {
-        if (reservationDate >= CHRISTMAS) {
-            return Optional.of(new ChristmasBenefit((CHRISTMAS - reservationDate) * BENEFIT_PRICE_CHRISTMAS
+        if (reservationDate <= CHRISTMAS) {
+            return Optional.of(new ChristmasBenefit((reservationDate - START_DISCOUNT_DAY) * BENEFIT_PRICE_CHRISTMAS
             ));
         }
 

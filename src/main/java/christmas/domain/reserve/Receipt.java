@@ -25,9 +25,12 @@ public class Receipt {
     }
 
     public int getDishesByMenuType(MenuType menuType) {
-        return (int) dishes.stream()
-                .filter(dish -> dish.getMenuType().equals(menuType))
-                .count();
+        return dishes.stream()
+                .filter(dish -> dish.getMenuType()
+                        .filter(menuValue -> menuValue.equals(menuType))
+                        .isPresent())
+                .mapToInt(Dish::getQuantity)
+                .sum();
     }
 
     public Map<String, Integer> getOrderReceipt() {
