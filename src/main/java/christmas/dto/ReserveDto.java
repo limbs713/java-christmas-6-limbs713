@@ -3,6 +3,7 @@ package christmas.dto;
 import java.util.Map;
 
 public class ReserveDto {
+    private int reserveDate;
     private Map<String,Integer> orderMenu;
     private int TotalPriceBeforeDiscount;
     private boolean BonusMenu;
@@ -66,5 +67,13 @@ public class ReserveDto {
 
     public void setEventBadge(String eventBadge) {
         EventBadge = eventBadge;
+    }
+
+    public int getReserveDate() {
+        return reserveDate;
+    }
+
+    public void setReserveDate(int reserveDate) {
+        this.reserveDate = reserveDate;
     }
 }

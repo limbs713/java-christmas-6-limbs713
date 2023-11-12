@@ -7,10 +7,16 @@ import java.util.Map;
 public class Reservation {
     private final Receipt receipt;
     private final DiscountBenefits discountBenefits;
+    private final int reservationDate;
 
-    public Reservation(Map<MenuItem,Integer> orderMenu, int reservationDate) {
+    public Reservation(Map<MenuItem, Integer> orderMenu, int reservationDate) {
         this.receipt = Receipt.create(orderMenu);
-        this.discountBenefits = DiscountBenefits.of(this.receipt, reservationDate);
+        this.reservationDate = reservationDate;
+        this.discountBenefits = DiscountBenefits.of(this.receipt, this.reservationDate);
+    }
+
+    public int getReservationDate() {
+        return reservationDate;
     }
 
     public Map<String, Integer> getOrderReceipt() {

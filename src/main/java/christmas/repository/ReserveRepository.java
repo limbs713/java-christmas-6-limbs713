@@ -11,6 +11,10 @@ public class ReserveRepository {
         this.reservation = new Reservation(orderDto.getOrderMenu(), orderDto.getReservationDate());
     }
 
+    public int getReservationDate() {
+        return reservation.getReservationDate();
+    }
+
     public Map<String, Integer> getReservations() {
         return reservation.getOrderReceipt();
     }

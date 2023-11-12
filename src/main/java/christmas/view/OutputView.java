@@ -12,7 +12,7 @@ public class OutputView {
     }
 
     public static void printReservation(ReserveDto reserveDto) {
-        printMessage(BENEFIT_TITLE_MESSAGE.getMessage());
+        printMessage(String.format(BENEFIT_TITLE_MESSAGE.getMessage(),reserveDto.getReserveDate()));
 
         printOrderMenu(reserveDto.getOrderMenu());
         printOrderPriceBeforeDiscount(reserveDto.getTotalPriceBeforeDiscount());

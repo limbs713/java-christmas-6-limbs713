@@ -18,6 +18,7 @@ public class ReserveService {
     public ReserveDto getReserveDto() {
         ReserveDto reserveDto = new ReserveDto();
 
+        reserveDto.setReserveDate(reserveRepository.getReservationDate());
         reserveDto.setOrderMenu(reserveRepository.getReservations());
         reserveDto.setTotalPriceBeforeDiscount(reserveRepository.getTotalOrderPrice());
         reserveDto.setBonusMenu(reserveRepository.isBonusMenuExist());
