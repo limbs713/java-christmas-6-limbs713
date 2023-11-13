@@ -5,7 +5,7 @@ import static christmas.Constant.Message.INPUT_ORDER_MENU_ERROR_MESSAGE;
 import christmas.Constant.MenuType;
 import christmas.Constant.RegEx;
 import christmas.domain.order.MenuItem;
-import christmas.repository.OrderRepository;
+import christmas.dto.repository.OrderRepository;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class OrderService {
+    private static final int QUANTITY_LIMIT = 20;
     private final OrderRepository orderRepository;
     private final Pattern orderMenuParser = RegEx.PARSING_MENU_REG_EX.getRegExPattern();
 
@@ -28,6 +29,23 @@ public class OrderService {
         isExistMenuName(orderMenuNames);
         isDuplicateMenu(orderMenuNames);
         isOnlyBeverages(orderMenuNames);
+        isQuantityUnderTwenty(parseOnlyQuantity(matcher));
+    }
+
+    private void isQuantityUnderTwenty(int totalQuantity) {
+        if(totalQuantity > QUANTITY_LIMIT){
+            throw new IllegalArgumentException(INPUT_ORDER_MENU_ERROR_MESSAGE.getMessage());
+        }
+    }
+
+    private int parseOnlyQuantity(Matcher matcher) {
+        int totalOrderQuantity = 0;
+
+        while (matcher.find()) {
+            totalOrderQuantity += Integer.parseInt(matcher.group(2));
+        }
+
+        return totalOrderQuantity;
     }
 
     private List<String> parseOnlyName(Matcher matcher) {
