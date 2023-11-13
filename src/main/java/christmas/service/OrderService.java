@@ -70,7 +70,7 @@ public class OrderService {
     private void isOnlyBeverages(List<String> orderMenuNames) {
         boolean containsNonBeverages = orderMenuNames.stream()
                 .map(MenuType::getType)
-                .anyMatch(type -> !type.equals(MenuType.BEVERAGES));
+                .anyMatch(type -> type.isPresent() && !type.get().equals(MenuType.BEVERAGES));
 
         if (!containsNonBeverages) {
             throw new IllegalArgumentException(INPUT_ORDER_MENU_ERROR_MESSAGE.getMessage());
