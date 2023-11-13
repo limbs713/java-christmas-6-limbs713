@@ -45,14 +45,15 @@ public class DiscountBenefits {
 
     private Optional<DiscountBenefit> checkDiscountByDayType(Receipt receipt, int reservationDate) {
         DayType daytype = DayType.valueOf(reservationDate);
+        int benefitMenuCount;
 
-        if (daytype.equals(DayType.WEEKDAY)) {
-            return Optional.of(new DayTypeBenefit(receipt.getDishesByMenuType(MenuType.DESERT), BENEFIT_PRICE_DAY_TYPE,
+        if (daytype.equals(DayType.WEEKDAY) && (benefitMenuCount = receipt.getDishesByMenuType(MenuType.DESERT)) != 0) {
+            return Optional.of(new DayTypeBenefit(benefitMenuCount, BENEFIT_PRICE_DAY_TYPE,
                     DayType.WEEKDAY));
         }
 
-        if (daytype.equals(DayType.WEEKEND)) {
-            return Optional.of(new DayTypeBenefit(receipt.getDishesByMenuType(MenuType.MAIN), BENEFIT_PRICE_DAY_TYPE,
+        if (daytype.equals(DayType.WEEKEND) && (benefitMenuCount = receipt.getDishesByMenuType(MenuType.MAIN)) != 0) {
+            return Optional.of(new DayTypeBenefit(benefitMenuCount, BENEFIT_PRICE_DAY_TYPE,
                     DayType.WEEKEND));
         }
 
