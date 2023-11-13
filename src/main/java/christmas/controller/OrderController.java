@@ -4,6 +4,7 @@ import static christmas.Constant.Message.*;
 
 import christmas.Constant.Message;
 import christmas.dto.OrderDto;
+import christmas.repository.OrderRepository;
 import christmas.service.OrderService;
 import christmas.Validator.MenuValidator;
 import christmas.Validator.ReservationDateValidator;
@@ -16,7 +17,7 @@ public class OrderController {
     private final OrderService orderService;
 
     public OrderController() {
-        orderService = new OrderService();
+        orderService = new OrderService(new OrderRepository());
     }
 
     public OrderDto order() {

@@ -5,7 +5,7 @@ import static christmas.Constant.Message.INPUT_ORDER_MENU_ERROR_MESSAGE;
 import christmas.Constant.MenuType;
 import christmas.Constant.RegEx;
 import christmas.domain.order.MenuItem;
-import christmas.dto.repository.OrderRepository;
+import christmas.repository.OrderRepository;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,8 +18,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final Pattern orderMenuParser = RegEx.PARSING_MENU_REG_EX.getRegExPattern();
 
-    public OrderService() {
-        this.orderRepository = new OrderRepository();
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository =  orderRepository;
     }
 
     public void isValidMenu(String orderMenu) {
