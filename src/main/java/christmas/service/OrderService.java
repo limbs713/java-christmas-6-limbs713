@@ -19,7 +19,7 @@ public class OrderService {
     private final Pattern orderMenuParser = RegEx.PARSING_MENU_REG_EX.getRegExPattern();
 
     public OrderService(OrderRepository orderRepository) {
-        this.orderRepository =  orderRepository;
+        this.orderRepository = orderRepository;
     }
 
     public void isValidMenu(String orderMenu) {
@@ -33,7 +33,7 @@ public class OrderService {
     }
 
     private void isQuantityUnderTwenty(int totalQuantity) {
-        if(totalQuantity > QUANTITY_LIMIT){
+        if (totalQuantity > QUANTITY_LIMIT) {
             throw new IllegalArgumentException(INPUT_ORDER_MENU_ERROR_MESSAGE.getMessage());
         }
     }
@@ -51,7 +51,7 @@ public class OrderService {
     private List<String> parseOnlyName(Matcher matcher) {
         List<String> orderMenuNames = new ArrayList<>();
 
-        while(matcher.find()) {
+        while (matcher.find()) {
             orderMenuNames.add(matcher.group(1));
         }
 
@@ -87,7 +87,7 @@ public class OrderService {
         Matcher matcher = orderMenuParser.matcher(orderMenu);
         Map<MenuItem, Integer> menuNameWithCount = new LinkedHashMap<>();
 
-        while(matcher.find()){
+        while (matcher.find()) {
             MenuItem menuItem = orderRepository.getMenuItemByName(matcher.group(1));
             int count = Integer.parseInt(matcher.group(2));
             menuNameWithCount.put(menuItem, count);

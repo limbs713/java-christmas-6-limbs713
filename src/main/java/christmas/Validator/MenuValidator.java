@@ -1,6 +1,7 @@
 package christmas.Validator;
 
 import static christmas.Constant.Message.INPUT_ORDER_MENU_ERROR_MESSAGE;
+
 import christmas.Constant.RegEx;
 import java.util.regex.Pattern;
 

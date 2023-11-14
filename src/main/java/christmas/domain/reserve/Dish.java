@@ -9,7 +9,7 @@ public class Dish {
     private final int price;
     private final int quantity;
 
-    public Dish(MenuItem menuItem , int quantity) {
+    public Dish(MenuItem menuItem, int quantity) {
         this.name = menuItem.getName();
         this.price = menuItem.getPrice();
         this.quantity = quantity;
@@ -23,7 +23,9 @@ public class Dish {
         return quantity * price;
     }
 
-    public int getQuantity() { return quantity; }
+    public int getQuantity() {
+        return quantity;
+    }
 
     public Optional<MenuType> getMenuType() {
         return MenuType.getType(name);

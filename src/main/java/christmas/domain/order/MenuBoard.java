@@ -23,9 +23,9 @@ public class MenuBoard {
     }
 
     public MenuItem getMenuItems(String name) {
-       return menuItems.stream()
-               .filter(menuItem -> menuItem.getName().equals(name))
-               .findFirst()
-               .orElse(null);
+        return menuItems.stream()
+                .filter(menuItem -> menuItem.getName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 }

@@ -7,7 +7,7 @@ import christmas.repository.ReserveRepository;
 public class ReserveService {
     private final ReserveRepository reserveRepository;
 
-    public ReserveService(){
+    public ReserveService() {
         this.reserveRepository = new ReserveRepository();
     }
 

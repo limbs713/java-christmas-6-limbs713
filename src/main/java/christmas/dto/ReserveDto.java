@@ -4,10 +4,10 @@ import java.util.Map;
 
 public class ReserveDto {
     private int reserveDate;
-    private Map<String,Integer> orderMenu;
+    private Map<String, Integer> orderMenu;
     private int TotalPriceBeforeDiscount;
     private boolean BonusMenu;
-    private Map<String,Integer> benefits;
+    private Map<String, Integer> benefits;
     private int TotalBenefitPrice;
     private int TotalPriceAfterDiscount;
     private String EventBadge;
