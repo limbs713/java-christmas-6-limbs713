@@ -4,6 +4,11 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import christmas.constant.RegEx;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -35,7 +40,7 @@ class OutputTest extends NsTest {
 
     @DisplayName("유효하지 않은 주문 메뉴는 error 메시지를 출력한다")
     @ValueSource(strings = {"바비큐립-21", "안심스테이크-4,바비큐립-2", "제로콜라-5", "바비큐립-7, 타파스-5, 제로콜라-6", "바비큐립:10", "제로콜라-a", "\n",
-            "바비큐 립 - 10"})
+            "바비큐 립 - 10", "바비큐립-0,제로콜라-2"})
     @ParameterizedTest
     void invalidOrderMenuTest(String menu) {
         assertSimpleTest(() -> {
@@ -69,6 +74,28 @@ class OutputTest extends NsTest {
                 assertThat(output()).doesNotContain(eventName);
             });
         }
+    }
+
+    @DisplayName("주문한 메뉴를 <주문 메뉴>에서 이름과 개수를 정확하게 출력해야한다")
+    @CsvSource(value = {"24:티본스테이크-3,제로콜라-5", "23:제로콜라-3,타파스-5,레드와인-2",
+            "26:해산물파스타-3,레드와인-1", "29:크리스마스파스타-3:제로콜라-3,양송이수프-3"}, delimiter = ':')
+    @ParameterizedTest
+    void outputOrderMenuTest(String reserveDate, String menu) {
+        //given
+        Pattern pattern = RegEx.PARSING_MENU_REG_EX.getRegExPattern();
+        Matcher matcher = pattern.matcher(menu);
+        Map<String, Integer> orderMap = new HashMap<>();
+        //when
+        while(matcher.find()){
+            orderMap.put(matcher.group(1), Integer.parseInt(matcher.group(2)));
+        }
+
+        //then
+        assertSimpleTest(() -> {
+            run(reserveDate, menu);
+            orderMap.forEach(
+                    (key, value) -> assertThat(output()).contains(key.toString() + " " + value.toString() + "개"));
+        });
     }
 
     @Override
