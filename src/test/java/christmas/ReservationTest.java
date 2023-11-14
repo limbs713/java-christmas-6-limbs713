@@ -3,9 +3,9 @@ package christmas;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
-import christmas.domain.order.MenuItem;
-import christmas.domain.reserve.Reservation;
-import christmas.repository.OrderRepository;
+import christmas.order.domain.MenuItem;
+import christmas.reserve.domain.Reservation;
+import christmas.order.repository.OrderRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

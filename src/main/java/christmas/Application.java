@@ -1,8 +1,8 @@
 package christmas;
 
-import christmas.controller.OrderController;
-import christmas.controller.ReserveController;
-import christmas.dto.OrderDto;
+import christmas.order.controller.OrderController;
+import christmas.reserve.controller.ReserveController;
+import christmas.order.dto.OrderDto;
 
 public class Application {
     public static void main(String[] args) {

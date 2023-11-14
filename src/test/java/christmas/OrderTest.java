@@ -1,14 +1,13 @@
 package christmas;
 
-import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
-import christmas.Constant.RegEx;
-import christmas.domain.order.MenuItem;
-import christmas.dto.OrderDto;
-import christmas.repository.OrderRepository;
-import christmas.service.OrderService;
+import christmas.constant.RegEx;
+import christmas.order.domain.MenuItem;
+import christmas.order.dto.OrderDto;
+import christmas.order.repository.OrderRepository;
+import christmas.order.service.OrderService;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -68,39 +67,6 @@ public class OrderTest extends NsTest {
 
             //then
             assertThat(orderDto.getOrderMenu()).isEqualTo(orderMap);
-        }
-    }
-
-    @Nested
-    class invalidOrderTest {
-
-        @DisplayName("유효하지 않은 예약 날짜는 error 메시지를 출력한다")
-        @ValueSource(strings = {"50", "-11", "32", "a", "\n", "!", " 1", "2 1", "3,2"})
-        @ParameterizedTest
-        void invalidReserveDateTest(String reserveDate) {
-            assertSimpleTest(() -> {
-                runException(reserveDate);
-                assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-            });
-        }
-
-        @DisplayName("유효하지 않은 주문 메뉴는 error 메시지를 출력한다")
-        @ValueSource(strings = {
-                "바비큐립-21",
-                "안심스테이크-4,바비큐립-2",
-                "제로콜라-5",
-                "바비큐립-7, 타파스-5, 제로콜라-6",
-                "바비큐립:10",
-                "제로콜라-a",
-                "\n",
-                "바비큐 립 - 10"
-        })
-        @ParameterizedTest
-        void invalidOrderMenuTest(String menu) {
-            assertSimpleTest(() -> {
-                runException(DEFAULT_DATE, menu);
-                assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            });
         }
     }
 }

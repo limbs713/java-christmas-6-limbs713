@@ -1,8 +1,8 @@
 package christmas.view;
 
-import static christmas.Constant.Message.*;
+import static christmas.constant.Message.*;
 
-import christmas.dto.ReserveDto;
+import christmas.reserve.dto.ReserveDto;
 import java.util.Map;
 
 public class OutputView {
