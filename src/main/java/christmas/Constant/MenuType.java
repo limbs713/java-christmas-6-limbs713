@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public enum MenuType {
     APPETIZER(Arrays.asList("양송이수프", "타파스", "시저샐러드")),
-    MAIN(Arrays.asList("티본스테이크", "바베큐립", "해산물파스타", "크리스마스파스타")),
+    MAIN(Arrays.asList("티본스테이크", "바비큐립", "해산물파스타", "크리스마스파스타")),
     DESERT(Arrays.asList("초코케이크", "아이스크림")),
     BEVERAGES(Arrays.asList("제로콜라", "레드와인", "샴페인"));
 
