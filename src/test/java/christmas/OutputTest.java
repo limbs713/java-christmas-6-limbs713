@@ -40,7 +40,7 @@ class OutputTest extends NsTest {
 
     @DisplayName("유효하지 않은 주문 메뉴는 error 메시지를 출력한다")
     @ValueSource(strings = {"바비큐립-21", "안심스테이크-4,바비큐립-2", "제로콜라-5", "바비큐립-7, 타파스-5, 제로콜라-6", "바비큐립:10", "제로콜라-a", "\n",
-            "바비큐 립 - 10", "바비큐립-0,제로콜라-2"})
+            "바비큐 립 - 10", "바비큐립-0,제로콜라-2","바비큐립-3,바비큐립2"})
     @ParameterizedTest
     void invalidOrderMenuTest(String menu) {
         assertSimpleTest(() -> {
